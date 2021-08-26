@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
 import Menu from "./components/Menu/Menu";
-import ProductList from "./components/ProductList/ProductList";
 import routes from "./routes";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
@@ -12,15 +11,7 @@ class App extends Component {
                 <div>
                     <Menu />
                     <div className="container">
-                        <div className="row">
-                            {/* <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <button type="button" className="btn btn-info mb-3">
-                                Add New
-                            </button>
-                            <ProductList />
-                        </div> */}
-                            {this.showContent(routes)}
-                        </div>
+                        <div className="row">{this.showContent(routes)}</div>
                     </div>
                 </div>
             </Router>
