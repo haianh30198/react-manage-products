@@ -1,4 +1,37 @@
 import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
+
+const menus = [
+    {
+        name: "Home Page",
+        to: "/",
+        exact: true,
+    },
+    {
+        name: "Manage Products",
+        to: "/product-list",
+        exact: false,
+    },
+];
+
+const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
+    return (
+        <Route
+            path={to}
+            exact={activeOnlyWhenExact}
+            children={({ match }) => {
+                var active = match ? "active" : "";
+                return (
+                    <li className={`nav-item ${active}`}>
+                        <Link to={to} className="nav-link">
+                            {label}
+                        </Link>
+                    </li>
+                );
+            }}
+        />
+    );
+};
 
 class Menu extends Component {
     render() {
@@ -19,22 +52,28 @@ class Menu extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="/#">
-                                Home <span className="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/#">
-                                Manage Products
-                            </a>
-                        </li>
-                    </ul>
+                    <ul className="navbar-nav">{this.showMenus(menus)}</ul>
                 </div>
             </nav>
         );
     }
+
+    showMenus = (menus) => {
+        var result = null;
+        if (menus.length > 0) {
+            result = menus.map((menu, index) => {
+                return (
+                    <MenuLink
+                        key={index}
+                        label={menu.name}
+                        to={menu.to}
+                        activeOnlyWhenExact={menu.exact}
+                    />
+                );
+            });
+        }
+        return result;
+    };
 }
 
 export default Menu;
